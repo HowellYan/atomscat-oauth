@@ -38,13 +38,13 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
-    @Value("${xboot.token.redis}")
+    @Value("${Atomscat.token.redis}")
     private Boolean tokenRedis;
 
-    @Value("${xboot.tokenExpireTime}")
+    @Value("${Atomscat.tokenExpireTime}")
     private Integer tokenExpireTime;
 
-    @Value("${xboot.saveLoginTime}")
+    @Value("${Atomscat.saveLoginTime}")
     private Integer saveLoginTime;
 
     @Autowired

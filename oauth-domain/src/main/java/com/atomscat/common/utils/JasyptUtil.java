@@ -56,6 +56,6 @@ public class JasyptUtil {
 
         System.out.println(encyptPwd("rmp","Aa123456@zx"));
         //解密
-        System.out.println(decyptPwd("xboot","F4B0s6u9xcDw3V+P0qC4CA=="));
+        System.out.println(decyptPwd("Atomscat","F4B0s6u9xcDw3V+P0qC4CA=="));
     }
 }

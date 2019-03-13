@@ -1,7 +1,7 @@
 package com.atomscat.modules.base.service;
 
 
-import com.atomscat.base.XbootBaseService;
+import com.atomscat.base.AtomscatBaseService;
 import com.atomscat.modules.base.entity.Role;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
  * 角色接口
  * @author Howell Yang
  */
-public interface RoleService extends XbootBaseService<Role,String> {
+public interface RoleService extends AtomscatBaseService<Role,String> {
 
     /**
      * 获取默认角色

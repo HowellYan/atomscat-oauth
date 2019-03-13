@@ -23,7 +23,7 @@ import java.net.UnknownHostException;
 @Component
 public class IpInfoUtil {
 
-    @Value("${xboot.mob.appKey}")
+    @Value("${Atomscat.mob.appKey}")
     private String appKey;
 
     /**

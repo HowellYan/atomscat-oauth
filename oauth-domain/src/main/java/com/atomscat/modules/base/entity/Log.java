@@ -1,6 +1,6 @@
 package com.atomscat.modules.base.entity;
 
-import com.atomscat.base.XbootBaseEntity;
+import com.atomscat.base.AtomscatBaseEntity;
 import com.atomscat.common.utils.ObjectUtil;
 import com.baomidou.mybatisplus.annotations.TableName;
 import io.swagger.annotations.ApiModel;
@@ -19,7 +19,7 @@ import java.util.Map;
 @Table(name = "t_log")
 @TableName("t_log")
 @ApiModel(value = "日志")
-public class Log extends XbootBaseEntity {
+public class Log extends AtomscatBaseEntity {
 
     private static final long serialVersionUID = 1L;
 

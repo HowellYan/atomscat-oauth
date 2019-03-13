@@ -1,6 +1,6 @@
 package com.atomscat.modules.base.dao;
 
-import com.atomscat.base.XbootBaseDao;
+import com.atomscat.base.AtomscatBaseDao;
 import com.atomscat.modules.base.entity.RolePermission;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * 角色权限数据处理层
  * @author Howell Yang
  */
-public interface RolePermissionDao extends XbootBaseDao<RolePermission,String> {
+public interface RolePermissionDao extends AtomscatBaseDao<RolePermission,String> {
 
     /**
      * 通过permissionId获取

@@ -1,6 +1,6 @@
 package com.atomscat.modules.base.service;
 
-import com.atomscat.base.XbootBaseService;
+import com.atomscat.base.AtomscatBaseService;
 import com.atomscat.modules.base.entity.DepartmentHeader;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * 部门负责人接口
  * @author Howell Yang
  */
-public interface DepartmentHeaderService extends XbootBaseService<DepartmentHeader,String> {
+public interface DepartmentHeaderService extends AtomscatBaseService<DepartmentHeader,String> {
 
     /**
      * 通过部门和负责人类型获取

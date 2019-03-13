@@ -2,7 +2,7 @@ package com.atomscat.modules.base.controller.manage;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
-import com.atomscat.common.exception.XbootException;
+import com.atomscat.common.exception.AtomscatException;
 import com.atomscat.common.utils.ResultUtil;
 import com.atomscat.common.vo.EsCount;
 import com.atomscat.common.vo.EsInfo;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Transactional
 public class EsController {
 
-    @Value("${xboot.elasticsearch.nodeClient}")
+    @Value("${Atomscat.elasticsearch.nodeClient}")
     private String ES_NODE_CLIENT;
 
     @RequestMapping(value = "/info",method = RequestMethod.GET)
@@ -40,7 +40,7 @@ public class EsController {
         String healthResult= HttpUtil.get(healthUrl);
         String countResult=HttpUtil.get(countUrl);
         if(StrUtil.isBlank(healthResult)||StrUtil.isBlank(countResult)){
-            throw new XbootException("连接ES失败，请检查ES运行状态");
+            throw new AtomscatException("连接ES失败，请检查ES运行状态");
         }
         EsInfo esInfo=new EsInfo();
         EsCount esCount=new EsCount();
@@ -50,7 +50,7 @@ public class EsController {
             esInfo.setCount(esCount.getCount());
         }catch (Exception e){
             e.printStackTrace();
-            throw new XbootException("获取ES信息出错");
+            throw new AtomscatException("获取ES信息出错");
         }
         return new ResultUtil<EsInfo>().setData(esInfo);
     }

@@ -1,6 +1,6 @@
 package com.atomscat.modules.base.service;
 
-import com.atomscat.base.XbootBaseService;
+import com.atomscat.base.AtomscatBaseService;
 import com.atomscat.modules.base.entity.Permission;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * 权限接口
  * @author Howell Yang
  */
-public interface PermissionService extends XbootBaseService<Permission,String> {
+public interface PermissionService extends AtomscatBaseService<Permission,String> {
 
     /**
      * 通过层级查找

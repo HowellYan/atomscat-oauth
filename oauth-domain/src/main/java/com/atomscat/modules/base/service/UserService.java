@@ -1,7 +1,7 @@
 package com.atomscat.modules.base.service;
 
 
-import com.atomscat.base.XbootBaseService;
+import com.atomscat.base.AtomscatBaseService;
 import com.atomscat.common.vo.SearchVo;
 import com.atomscat.modules.base.entity.User;
 import org.springframework.cache.annotation.CacheConfig;
@@ -16,7 +16,7 @@ import java.util.List;
  * @author Howell Yang
  */
 @CacheConfig(cacheNames = "user")
-public interface UserService extends XbootBaseService<User,String> {
+public interface UserService extends AtomscatBaseService<User,String> {
 
     /**
      * 通过用户名获取用户

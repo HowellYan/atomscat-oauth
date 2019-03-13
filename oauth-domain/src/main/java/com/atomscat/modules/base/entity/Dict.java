@@ -1,6 +1,6 @@
 package com.atomscat.modules.base.entity;
 
-import com.atomscat.base.XbootBaseEntity;
+import com.atomscat.base.AtomscatBaseEntity;
 import com.baomidou.mybatisplus.annotations.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 @Table(name = "t_dict")
 @TableName("t_dict")
 @ApiModel(value = "字典")
-public class Dict extends XbootBaseEntity {
+public class Dict extends AtomscatBaseEntity {
 
     private static final long serialVersionUID = 1L;
 

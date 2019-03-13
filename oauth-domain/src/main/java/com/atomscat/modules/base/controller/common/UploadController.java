@@ -1,7 +1,7 @@
 package com.atomscat.modules.base.controller.common;
 
 import cn.hutool.core.util.StrUtil;
-import com.atomscat.common.exception.XbootException;
+import com.atomscat.common.exception.AtomscatException;
 import com.atomscat.common.limit.RedisRaterLimiter;
 import com.atomscat.common.utils.IpInfoUtil;
 import com.atomscat.common.utils.ResultUtil;
@@ -46,7 +46,7 @@ public class UploadController {
         // IP限流 在线Demo所需 5分钟限1个请求
         String token = redisRaterLimiter.acquireTokenFromBucket("upload:" + ipInfoUtil.getIpAddr(request), 1, 300000);
         if (StrUtil.isBlank(token)) {
-            throw new XbootException("上传那么多干嘛，等等再传吧");
+            throw new AtomscatException("上传那么多干嘛，等等再传吧");
         }
 
         String result = null;
@@ -72,7 +72,7 @@ public class UploadController {
         // IP限流 在线Demo所需 60秒限1个请求
         String token = redisRaterLimiter.acquireTokenFromBucket("upload:" + ipInfoUtil.getIpAddr(request), 1, 60000);
         if (StrUtil.isBlank(token)) {
-            throw new XbootException("上传那么多干嘛，等等再传吧");
+            throw new AtomscatException("上传那么多干嘛，等等再传吧");
         }
 
         String result = null;

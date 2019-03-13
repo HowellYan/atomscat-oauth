@@ -1,6 +1,6 @@
 package com.atomscat.modules.base.dao;
 
-import com.atomscat.base.XbootBaseDao;
+import com.atomscat.base.AtomscatBaseDao;
 import com.atomscat.modules.base.entity.Permission;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * 权限数据处理层
  * @author Howell Yang
  */
-public interface PermissionDao extends XbootBaseDao<Permission,String> {
+public interface PermissionDao extends AtomscatBaseDao<Permission,String> {
 
     /**
      * 通过层级查找

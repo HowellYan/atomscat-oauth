@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @Transactional
 public class LogController{
 
-    @Value("${xboot.logRecord.es}")
+    @Value("${Atomscat.logRecord.es}")
     private Boolean esRecord;
 
 

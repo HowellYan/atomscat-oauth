@@ -1,6 +1,6 @@
 package com.atomscat.modules.base.service;
 
-import com.atomscat.base.XbootBaseService;
+import com.atomscat.base.AtomscatBaseService;
 import com.atomscat.modules.base.entity.RoleDepartment;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * 角色部门接口
  * @author Howell Yang
  */
-public interface RoleDepartmentService extends XbootBaseService<RoleDepartment,String> {
+public interface RoleDepartmentService extends AtomscatBaseService<RoleDepartment,String> {
 
     /**
      * 通过roleId获取

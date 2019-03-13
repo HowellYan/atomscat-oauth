@@ -1,6 +1,6 @@
 package com.atomscat.modules.base.entity;
 
-import com.atomscat.base.XbootBaseEntity;
+import com.atomscat.base.AtomscatBaseEntity;
 import com.baomidou.mybatisplus.annotations.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "t_role_permission")
 @TableName("t_role_permission")
 @ApiModel(value = "角色权限")
-public class RolePermission extends XbootBaseEntity {
+public class RolePermission extends AtomscatBaseEntity {
 
     private static final long serialVersionUID = 1L;
 

@@ -1,6 +1,6 @@
 package com.atomscat.modules.base.dao;
 
-import com.atomscat.base.XbootBaseDao;
+import com.atomscat.base.AtomscatBaseDao;
 import com.atomscat.modules.base.entity.DepartmentHeader;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * 部门负责人数据处理层
  * @author Howell Yang
  */
-public interface DepartmentHeaderDao extends XbootBaseDao<DepartmentHeader,String> {
+public interface DepartmentHeaderDao extends AtomscatBaseDao<DepartmentHeader,String> {
 
     /**
      * 通过部门和负责人类型获取

@@ -1,6 +1,6 @@
 package com.atomscat.modules.base.entity;
 
-import com.atomscat.base.XbootBaseEntity;
+import com.atomscat.base.AtomscatBaseEntity;
 import com.atomscat.common.constant.CommonConstant;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -23,7 +23,7 @@ import java.util.List;
 @Table(name = "t_department")
 @TableName("t_department")
 @ApiModel(value = "部门")
-public class Department extends XbootBaseEntity {
+public class Department extends AtomscatBaseEntity {
 
     private static final long serialVersionUID = 1L;
 

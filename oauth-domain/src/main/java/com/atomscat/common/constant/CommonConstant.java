@@ -60,7 +60,7 @@ public interface CommonConstant {
     /**
      * 限流标识
      */
-    String LIMIT_ALL = "XBOOT_LIMIT_ALL";
+    String LIMIT_ALL = "Atomscat_LIMIT_ALL";
 
     /**
      * 页面类型权限

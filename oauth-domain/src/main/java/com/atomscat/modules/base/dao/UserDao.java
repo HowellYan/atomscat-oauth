@@ -1,6 +1,6 @@
 package com.atomscat.modules.base.dao;
 
-import com.atomscat.base.XbootBaseDao;
+import com.atomscat.base.AtomscatBaseDao;
 import com.atomscat.modules.base.entity.User;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * 用户数据处理层
  * @author Howell Yang
  */
-public interface UserDao extends XbootBaseDao<User,String> {
+public interface UserDao extends AtomscatBaseDao<User,String> {
 
     /**
      * 通过用户名获取用户

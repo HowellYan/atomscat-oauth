@@ -25,7 +25,7 @@ import java.util.Date;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
-public abstract class XbootBaseEntity implements Serializable{
+public abstract class AtomscatBaseEntity implements Serializable{
 
     private static final long serialVersionUID = 1L;
 

@@ -15,14 +15,14 @@ import java.util.List;
 /**
  * @author Howell Yang
  */
-public abstract class XbootBaseController<E, ID extends Serializable> {
+public abstract class AtomscatBaseController<E, ID extends Serializable> {
 
     /**
      * 获取service
      * @return
      */
     @Autowired
-    public abstract XbootBaseService<E,ID> getService();
+    public abstract AtomscatBaseService<E,ID> getService();
 
     @RequestMapping(value = "/get/{id}",method = RequestMethod.GET)
     @ResponseBody

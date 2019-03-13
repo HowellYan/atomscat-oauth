@@ -1,6 +1,6 @@
 package com.atomscat.modules.base.service;
 
-import com.atomscat.base.XbootBaseService;
+import com.atomscat.base.AtomscatBaseService;
 import com.atomscat.modules.base.entity.RolePermission;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * 角色权限接口
  * @author Howell Yang
  */
-public interface RolePermissionService extends XbootBaseService<RolePermission,String> {
+public interface RolePermissionService extends AtomscatBaseService<RolePermission,String> {
 
     /**
      * 通过permissionId获取

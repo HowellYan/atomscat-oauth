@@ -1,6 +1,6 @@
 package com.atomscat.modules.base.service;
 
-import com.atomscat.base.XbootBaseService;
+import com.atomscat.base.AtomscatBaseService;
 import com.atomscat.modules.base.entity.Dict;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * 字典接口
  * @author Howell Yang
  */
-public interface DictService extends XbootBaseService<Dict,String> {
+public interface DictService extends AtomscatBaseService<Dict,String> {
 
     /**
      * 排序获取全部

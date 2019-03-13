@@ -1,6 +1,6 @@
 package com.atomscat.modules.base.dao;
 
-import com.atomscat.base.XbootBaseDao;
+import com.atomscat.base.AtomscatBaseDao;
 import com.atomscat.modules.base.entity.DictData;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * 字典数据数据处理层
  * @author Howell Yang
  */
-public interface DictDataDao extends XbootBaseDao<DictData,String> {
+public interface DictDataDao extends AtomscatBaseDao<DictData,String> {
 
 
     /**

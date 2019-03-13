@@ -6,11 +6,11 @@ import lombok.Data;
  * @author Howell Yang
  */
 @Data
-public class XbootException extends RuntimeException {
+public class AtomscatException extends RuntimeException {
 
     private String msg;
 
-    public XbootException(String msg){
+    public AtomscatException(String msg){
         super(msg);
         this.msg = msg;
     }

@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class RestCtrlExceptionHandler {
 
-    @ExceptionHandler(XbootException.class)
+    @ExceptionHandler(AtomscatException.class)
     @ResponseStatus(value = HttpStatus.OK)
-    public Result<Object> handleXCloudException(XbootException e) {
+    public Result<Object> handleXCloudException(AtomscatException e) {
 
-        String errorMsg="Xboot exception";
+        String errorMsg="Atomscat exception";
         if (e!=null){
             errorMsg=e.getMsg();
             log.error(e.toString());

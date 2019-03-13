@@ -27,10 +27,10 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class AuthenticationFailHandler extends SimpleUrlAuthenticationFailureHandler {
 
-    @Value("${xboot.loginTimeLimit}")
+    @Value("${Atomscat.loginTimeLimit}")
     private Integer loginTimeLimit;
 
-    @Value("${xboot.loginAfterTime}")
+    @Value("${Atomscat.loginAfterTime}")
     private Integer loginAfterTime;
 
     @Autowired

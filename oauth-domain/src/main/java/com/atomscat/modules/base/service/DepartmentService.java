@@ -1,6 +1,6 @@
 package com.atomscat.modules.base.service;
 
-import com.atomscat.base.XbootBaseService;
+import com.atomscat.base.AtomscatBaseService;
 import com.atomscat.modules.base.entity.Department;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * 部门接口
  * @author Howell Yang
  */
-public interface DepartmentService extends XbootBaseService<Department,String> {
+public interface DepartmentService extends AtomscatBaseService<Department,String> {
 
     /**
      * 通过父id获取 升序
