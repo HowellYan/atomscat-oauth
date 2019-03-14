@@ -9,12 +9,14 @@ import java.util.List;
 
 /**
  * 字典数据处理层
+ *
  * @author Howell Yang
  */
-public interface DictDao extends AtomscatBaseDao<Dict,String> {
+public interface DictDao extends AtomscatBaseDao<Dict, String> {
 
     /**
      * 排序获取全部
+     *
      * @return
      */
     @Query(value = "select * from t_dict d order by d.sort_order", nativeQuery = true)
@@ -22,6 +24,7 @@ public interface DictDao extends AtomscatBaseDao<Dict,String> {
 
     /**
      * 通过type获取
+     *
      * @param type
      * @return
      */
@@ -29,6 +32,7 @@ public interface DictDao extends AtomscatBaseDao<Dict,String> {
 
     /**
      * 模糊搜索
+     *
      * @param key
      * @return
      */

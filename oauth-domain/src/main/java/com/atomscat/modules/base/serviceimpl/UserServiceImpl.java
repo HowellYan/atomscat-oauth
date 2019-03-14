@@ -29,6 +29,7 @@ import java.util.List;
 
 /**
  * 用户接口实现
+ *
  * @author Howell Yang
  */
 @Slf4j
@@ -58,12 +59,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        
-        List<User> list=userDao.findByUsername(username);
-        if(list!=null&&list.size()>0){
+
+        List<User> list = userDao.findByUsername(username);
+        if (list != null && list.size() > 0) {
             User user = list.get(0);
             // 关联部门
-            if(StrUtil.isNotBlank(user.getDepartmentId())){
+            if (StrUtil.isNotBlank(user.getDepartmentId())) {
                 Department department = departmentDao.getOne(user.getDepartmentId());
                 user.setDepartmentTitle(department.getTitle());
             }
@@ -82,7 +83,7 @@ public class UserServiceImpl implements UserService {
     public User findByMobile(String mobile) {
 
         List<User> list = userDao.findByMobile(mobile);
-        if(list!=null&&list.size()>0) {
+        if (list != null && list.size() > 0) {
             User user = list.get(0);
             return user;
         }
@@ -93,7 +94,7 @@ public class UserServiceImpl implements UserService {
     public User findByEmail(String email) {
 
         List<User> list = userDao.findByEmail(email);
-        if(list!=null&&list.size()>0) {
+        if (list != null && list.size() > 0) {
             User user = list.get(0);
             return user;
         }
@@ -112,43 +113,43 @@ public class UserServiceImpl implements UserService {
                 Path<String> mobileField = root.get("mobile");
                 Path<String> emailField = root.get("email");
                 Path<String> departmentIdField = root.get("departmentId");
-                Path<Integer> sexField=root.get("sex");
-                Path<Integer> typeField=root.get("type");
-                Path<Integer> statusField=root.get("status");
-                Path<Date> createTimeField=root.get("createTime");
+                Path<Integer> sexField = root.get("sex");
+                Path<Integer> typeField = root.get("type");
+                Path<Integer> statusField = root.get("status");
+                Path<Date> createTimeField = root.get("createTime");
 
                 List<Predicate> list = new ArrayList<Predicate>();
 
                 //模糊搜素
-                if(StrUtil.isNotBlank(user.getUsername())){
-                    list.add(cb.like(usernameField,'%'+user.getUsername()+'%'));
+                if (StrUtil.isNotBlank(user.getUsername())) {
+                    list.add(cb.like(usernameField, '%' + user.getUsername() + '%'));
                 }
-                if(StrUtil.isNotBlank(user.getMobile())){
-                    list.add(cb.like(mobileField,'%'+user.getMobile()+'%'));
+                if (StrUtil.isNotBlank(user.getMobile())) {
+                    list.add(cb.like(mobileField, '%' + user.getMobile() + '%'));
                 }
-                if(StrUtil.isNotBlank(user.getEmail())){
-                    list.add(cb.like(emailField,'%'+user.getEmail()+'%'));
+                if (StrUtil.isNotBlank(user.getEmail())) {
+                    list.add(cb.like(emailField, '%' + user.getEmail() + '%'));
                 }
 
                 //部门
-                if(StrUtil.isNotBlank(user.getDepartmentId())){
+                if (StrUtil.isNotBlank(user.getDepartmentId())) {
                     list.add(cb.equal(departmentIdField, user.getDepartmentId()));
                 }
 
                 //性别
-                if(user.getSex()!=null){
+                if (user.getSex() != null) {
                     list.add(cb.equal(sexField, user.getSex()));
                 }
                 //类型
-                if(user.getType()!=null){
+                if (user.getType() != null) {
                     list.add(cb.equal(typeField, user.getType()));
                 }
                 //状态
-                if(user.getStatus()!=null){
+                if (user.getStatus() != null) {
                     list.add(cb.equal(statusField, user.getStatus()));
                 }
                 //创建时间
-                if(StrUtil.isNotBlank(searchVo.getStartDate())&&StrUtil.isNotBlank(searchVo.getEndDate())){
+                if (StrUtil.isNotBlank(searchVo.getStartDate()) && StrUtil.isNotBlank(searchVo.getEndDate())) {
                     Date start = DateUtil.parse(searchVo.getStartDate());
                     Date end = DateUtil.parse(searchVo.getEndDate());
                     list.add(cb.between(createTimeField, start, DateUtil.endOfDay(end)));
@@ -156,7 +157,7 @@ public class UserServiceImpl implements UserService {
 
                 //数据权限
                 List<String> depIds = securityUtil.getDeparmentIds();
-                if(depIds!=null&&depIds.size()>0){
+                if (depIds != null && depIds.size() > 0) {
                     list.add(departmentIdField.in(depIds));
                 }
 

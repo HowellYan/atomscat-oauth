@@ -4,7 +4,10 @@ import com.atomscat.common.utils.PageUtil;
 import com.atomscat.common.utils.ResultUtil;
 import com.atomscat.common.vo.PageVo;
 import com.atomscat.common.vo.Result;
-import com.atomscat.modules.base.entity.*;
+import com.atomscat.modules.base.entity.Role;
+import com.atomscat.modules.base.entity.RoleDepartment;
+import com.atomscat.modules.base.entity.RolePermission;
+import com.atomscat.modules.base.entity.UserRole;
 import com.atomscat.modules.base.service.RoleDepartmentService;
 import com.atomscat.modules.base.service.RolePermissionService;
 import com.atomscat.modules.base.service.RoleService;
@@ -18,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 
 /**
@@ -44,20 +46,20 @@ public class RoleController {
     private RoleDepartmentService roleDepartmentService;
 
 
-    @RequestMapping(value = "/getAllList",method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllList", method = RequestMethod.GET)
     @ApiOperation(value = "获取全部角色")
-    public Result<Object> roleGetAll(){
+    public Result<Object> roleGetAll() {
 
         List<Role> list = roleService.getAll();
         return new ResultUtil<Object>().setData(list);
     }
 
-    @RequestMapping(value = "/getAllByPage",method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllByPage", method = RequestMethod.GET)
     @ApiOperation(value = "分页获取角色")
-    public Result<Page<Role>> getRoleByPage(@ModelAttribute PageVo page){
+    public Result<Page<Role>> getRoleByPage(@ModelAttribute PageVo page) {
 
         Page<Role> list = roleService.findAll(PageUtil.initPage(page));
-        for(Role role : list.getContent()){
+        for (Role role : list.getContent()) {
             // 角色拥有权限
             List<RolePermission> permissions = rolePermissionService.findByRoleId(role.getId());
             role.setPermissions(permissions);
@@ -68,13 +70,13 @@ public class RoleController {
         return new ResultUtil<Page<Role>>().setData(list);
     }
 
-    @RequestMapping(value = "/setDefault",method = RequestMethod.POST)
+    @RequestMapping(value = "/setDefault", method = RequestMethod.POST)
     @ApiOperation(value = "设置或取消默认角色")
     public Result<Object> setDefault(@RequestParam String id,
-                                     @RequestParam Boolean isDefault){
+                                     @RequestParam Boolean isDefault) {
 
         Role role = roleService.get(id);
-        if(role==null){
+        if (role == null) {
             return new ResultUtil<Object>().setErrorMsg("角色不存在");
         }
         role.setDefaultRole(isDefault);
@@ -82,15 +84,15 @@ public class RoleController {
         return new ResultUtil<Object>().setSuccessMsg("设置成功");
     }
 
-    @RequestMapping(value = "/editRolePerm",method = RequestMethod.POST)
+    @RequestMapping(value = "/editRolePerm", method = RequestMethod.POST)
     @ApiOperation(value = "编辑角色分配菜单权限")
     public Result<Object> editRolePerm(@RequestParam String roleId,
-                                       @RequestParam(required = false) String[] permIds){
+                                       @RequestParam(required = false) String[] permIds) {
 
         //删除其关联权限
         rolePermissionService.deleteByRoleId(roleId);
         //分配新权限
-        for(String permId : permIds){
+        for (String permId : permIds) {
             RolePermission rolePermission = new RolePermission();
             rolePermission.setRoleId(roleId);
             rolePermission.setPermissionId(permId);
@@ -99,11 +101,11 @@ public class RoleController {
         return new ResultUtil<Object>().setData(null);
     }
 
-    @RequestMapping(value = "/editRoleDep",method = RequestMethod.POST)
+    @RequestMapping(value = "/editRoleDep", method = RequestMethod.POST)
     @ApiOperation(value = "编辑角色分配数据权限")
     public Result<Object> editRoleDep(@RequestParam String roleId,
                                       @RequestParam Integer dataType,
-                                      @RequestParam(required = false) String[] depIds){
+                                      @RequestParam(required = false) String[] depIds) {
 
         Role r = roleService.get(roleId);
         r.setDataType(dataType);
@@ -111,7 +113,7 @@ public class RoleController {
         // 删除其关联数据权限
         roleDepartmentService.deleteByRoleId(roleId);
         // 分配新数据权限
-        for(String depId : depIds){
+        for (String depId : depIds) {
             RoleDepartment roleDepartment = new RoleDepartment();
             roleDepartment.setRoleId(roleId);
             roleDepartment.setDepartmentId(depId);
@@ -121,33 +123,33 @@ public class RoleController {
         return new ResultUtil<Object>().setData(null);
     }
 
-    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ApiOperation(value = "保存数据")
-    public Result<Role> save(@ModelAttribute Role role){
+    public Result<Role> save(@ModelAttribute Role role) {
 
         Role r = roleService.save(role);
         return new ResultUtil<Role>().setData(r);
     }
 
-    @RequestMapping(value = "/edit",method = RequestMethod.POST)
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ApiOperation(value = "更新数据")
-    public Result<Role> edit(@ModelAttribute Role entity){
+    public Result<Role> edit(@ModelAttribute Role entity) {
 
         Role r = roleService.update(entity);
         return new ResultUtil<Role>().setData(r);
     }
 
-    @RequestMapping(value = "/delAllByIds/{ids}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delAllByIds/{ids}", method = RequestMethod.DELETE)
     @ApiOperation(value = "批量通过ids删除")
-    public Result<Object> delByIds(@PathVariable String[] ids){
+    public Result<Object> delByIds(@PathVariable String[] ids) {
 
-        for(String id:ids){
+        for (String id : ids) {
             List<UserRole> list = userRoleService.findByRoleId(id);
-            if(list!=null&&list.size()>0){
+            if (list != null && list.size() > 0) {
                 return new ResultUtil<Object>().setErrorMsg("删除失败，包含正被用户使用关联的角色");
             }
         }
-        for(String id:ids){
+        for (String id : ids) {
             roleService.delete(id);
             //删除关联菜单权限
             rolePermissionService.deleteByRoleId(id);

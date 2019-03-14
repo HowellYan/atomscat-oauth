@@ -38,12 +38,12 @@ public class Role extends AtomscatBaseEntity {
     private String description;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "拥有权限")
     private List<RolePermission> permissions;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "拥有数据权限")
     private List<RoleDepartment> departments;
 }

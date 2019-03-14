@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * 字典接口实现
+ *
  * @author Howell Yang
  */
 @Slf4j
@@ -37,7 +38,7 @@ public class DictServiceImpl implements DictService {
     public Dict findByType(String type) {
 
         List<Dict> list = dictDao.findByType(type);
-        if(list!=null&&list.size()>0){
+        if (list != null && list.size() > 0) {
             return list.get(0);
         }
         return null;

@@ -7,13 +7,15 @@ import java.util.List;
 
 /**
  * 权限数据处理层
+ *
  * @author Howell Yang
  */
-public interface PermissionDao extends AtomscatBaseDao<Permission,String> {
+public interface PermissionDao extends AtomscatBaseDao<Permission, String> {
 
     /**
      * 通过层级查找
      * 默认升序
+     *
      * @param level
      * @return
      */
@@ -21,6 +23,7 @@ public interface PermissionDao extends AtomscatBaseDao<Permission,String> {
 
     /**
      * 通过parendId查找
+     *
      * @param parentId
      * @return
      */
@@ -28,6 +31,7 @@ public interface PermissionDao extends AtomscatBaseDao<Permission,String> {
 
     /**
      * 通过类型和状态获取
+     *
      * @param type
      * @param status
      * @return
@@ -36,6 +40,7 @@ public interface PermissionDao extends AtomscatBaseDao<Permission,String> {
 
     /**
      * 通过名称获取
+     *
      * @param title
      * @return
      */
@@ -43,6 +48,7 @@ public interface PermissionDao extends AtomscatBaseDao<Permission,String> {
 
     /**
      * 模糊搜索
+     *
      * @param title
      * @return
      */

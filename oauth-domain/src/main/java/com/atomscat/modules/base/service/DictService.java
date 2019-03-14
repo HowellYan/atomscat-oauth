@@ -7,18 +7,21 @@ import java.util.List;
 
 /**
  * 字典接口
+ *
  * @author Howell Yang
  */
-public interface DictService extends AtomscatBaseService<Dict,String> {
+public interface DictService extends AtomscatBaseService<Dict, String> {
 
     /**
      * 排序获取全部
+     *
      * @return
      */
     List<Dict> findAllOrderBySortOrder();
 
     /**
      * 通过type获取
+     *
      * @param type
      * @return
      */
@@ -26,6 +29,7 @@ public interface DictService extends AtomscatBaseService<Dict,String> {
 
     /**
      * 模糊搜索
+     *
      * @param key
      * @return
      */

@@ -1,7 +1,5 @@
 package com.atomscat.config.security;
 
-import cn.hutool.core.util.StrUtil;
-import com.atomscat.common.exception.LoginFailLimitException;
 import com.atomscat.modules.base.entity.User;
 import com.atomscat.modules.base.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,14 +9,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * @author Howell Yang
  */
 @Slf4j
 @Component
-public class UserDetailsServiceImpl implements UserDetailsService{
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 
     @Autowired
@@ -27,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        String flagKey = "loginFailFlag:"+username;
+        String flagKey = "loginFailFlag:" + username;
 
         User user = userService.findByUsername(username);
         return new SecurityUserDetails(user);

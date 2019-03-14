@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * 部门负责人接口实现
+ *
  * @author Howell Yang
  */
 @Slf4j
@@ -34,7 +35,7 @@ public class DepartmentHeaderServiceImpl implements DepartmentHeaderService {
 
         List<String> list = new ArrayList<>();
         List<DepartmentHeader> headers = departmentHeaderDao.findByDepartmentIdAndType(departmentId, type);
-        headers.forEach(e->{
+        headers.forEach(e -> {
             list.add(e.getUserId());
         });
         return list;

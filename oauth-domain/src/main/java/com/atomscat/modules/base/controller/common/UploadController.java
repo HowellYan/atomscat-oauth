@@ -61,7 +61,6 @@ public class UploadController {
                                         HttpServletRequest request) {
 
 
-
         String result = null;
 
         String classpath = this.getClass().getResource("/").getPath();

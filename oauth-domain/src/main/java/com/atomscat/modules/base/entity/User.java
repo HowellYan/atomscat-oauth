@@ -52,11 +52,11 @@ public class User extends AtomscatBaseEntity {
     private Integer sex;
 
     @ApiModelProperty(value = "密码强度")
-    @Column(length=2)
+    @Column(length = 2)
     private String passStrength;
 
     @ApiModelProperty(value = "用户头像")
-    @Column(length=1000)
+    @Column(length = 1000)
     private String avatar = CommonConstant.USER_DEFAULT_AVATAR;
 
     @ApiModelProperty(value = "用户类型 0普通用户 1管理员")
@@ -72,17 +72,17 @@ public class User extends AtomscatBaseEntity {
     private String departmentId;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "所属部门名称")
     private String departmentTitle;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "用户拥有角色")
     private List<Role> roles;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "用户拥有的权限")
     private List<Permission> permissions;
 }

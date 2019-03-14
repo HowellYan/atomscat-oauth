@@ -7,12 +7,14 @@ import java.util.List;
 
 /**
  * 用户数据处理层
+ *
  * @author Howell Yang
  */
-public interface UserDao extends AtomscatBaseDao<User,String> {
+public interface UserDao extends AtomscatBaseDao<User, String> {
 
     /**
      * 通过用户名获取用户
+     *
      * @param username
      * @return
      */
@@ -20,6 +22,7 @@ public interface UserDao extends AtomscatBaseDao<User,String> {
 
     /**
      * 通过手机获取用户
+     *
      * @param mobile
      * @return
      */
@@ -27,6 +30,7 @@ public interface UserDao extends AtomscatBaseDao<User,String> {
 
     /**
      * 通过邮件获取用户
+     *
      * @param email
      * @return
      */
@@ -34,6 +38,7 @@ public interface UserDao extends AtomscatBaseDao<User,String> {
 
     /**
      * 通过部门id获取
+     *
      * @param departmentId
      * @return
      */

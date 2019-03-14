@@ -8,12 +8,14 @@ import java.util.List;
 
 /**
  * 角色接口
+ *
  * @author Howell Yang
  */
-public interface RoleService extends AtomscatBaseService<Role,String> {
+public interface RoleService extends AtomscatBaseService<Role, String> {
 
     /**
      * 获取默认角色
+     *
      * @param defaultRole
      * @return
      */

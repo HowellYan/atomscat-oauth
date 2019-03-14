@@ -10,6 +10,7 @@ import java.util.Optional;
 
 /**
  * 审计记录创建或修改用户
+ *
  * @author Howell Yang
  */
 @Configuration
@@ -23,7 +24,7 @@ public class UserAuditor implements AuditorAware<String> {
         try {
             user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             return Optional.ofNullable(user.getUsername());
-        }catch (Exception e){
+        } catch (Exception e) {
             return Optional.empty();
         }
     }

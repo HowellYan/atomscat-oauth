@@ -7,12 +7,14 @@ import java.util.List;
 
 /**
  * 角色权限数据处理层
+ *
  * @author Howell Yang
  */
-public interface RolePermissionDao extends AtomscatBaseDao<RolePermission,String> {
+public interface RolePermissionDao extends AtomscatBaseDao<RolePermission, String> {
 
     /**
      * 通过permissionId获取
+     *
      * @param permissionId
      * @return
      */
@@ -20,12 +22,14 @@ public interface RolePermissionDao extends AtomscatBaseDao<RolePermission,String
 
     /**
      * 通过roleId获取
+     *
      * @param roleId
      */
     List<RolePermission> findByRoleId(String roleId);
 
     /**
      * 通过roleId删除
+     *
      * @param roleId
      */
     void deleteByRoleId(String roleId);

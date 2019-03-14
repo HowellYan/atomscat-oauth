@@ -15,6 +15,7 @@ public interface IPermissionService extends IService<Permission> {
 
     /**
      * 通过用户id获取
+     *
      * @param userId
      * @return
      */

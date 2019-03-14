@@ -29,9 +29,10 @@ public class SecurityUtil {
 
     /**
      * 获取当前登录用户
+     *
      * @return
      */
-    public User getCurrUser(){
+    public User getCurrUser() {
 
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userService.findByUsername(user.getUsername());
@@ -40,7 +41,7 @@ public class SecurityUtil {
     /**
      * 获取当前用户数据权限 null代表具有所有权限
      */
-    public List<String> getDeparmentIds(){
+    public List<String> getDeparmentIds() {
 
         List<String> deparmentIds = new ArrayList<>();
         User u = getCurrUser();
@@ -48,13 +49,13 @@ public class SecurityUtil {
         List<Role> userRoleList = iUserRoleService.findByUserId(u.getId());
         // 判断有无全部数据的角色
         Boolean flagAll = false;
-        for(Role r : userRoleList){
-            if(r.getDataType()==null||r.getDataType().equals(CommonConstant.DATA_TYPE_ALL)){
+        for (Role r : userRoleList) {
+            if (r.getDataType() == null || r.getDataType().equals(CommonConstant.DATA_TYPE_ALL)) {
                 flagAll = true;
                 break;
             }
         }
-        if(flagAll){
+        if (flagAll) {
             return null;
         }
         // 查找自定义

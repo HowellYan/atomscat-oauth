@@ -52,6 +52,7 @@ public class Log extends AtomscatBaseEntity {
 
     /**
      * 转换请求参数为Json
+     *
      * @param paramMap
      */
     public void setMapToParams(Map<String, String[]> paramMap) {

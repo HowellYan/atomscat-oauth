@@ -23,7 +23,7 @@ import java.util.List;
 @Api(description = "字典管理接口")
 @RequestMapping("/rmp/dict")
 @Transactional
-public class DictController{
+public class DictController {
 
     @Autowired
     private DictService dictService;
@@ -31,41 +31,41 @@ public class DictController{
     @Autowired
     private DictDataService dictDataService;
 
-    @RequestMapping(value = "/getAll",method = RequestMethod.GET)
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ApiOperation(value = "获取全部数据")
-    public Result<List<Dict>> getAll(){
+    public Result<List<Dict>> getAll() {
 
         List<Dict> list = dictService.findAllOrderBySortOrder();
         return new ResultUtil<List<Dict>>().setData(list);
     }
 
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ApiOperation(value = "添加")
-    public Result<Object> add(@ModelAttribute Dict dict){
+    public Result<Object> add(@ModelAttribute Dict dict) {
 
-        if(dictService.findByType(dict.getType())!=null){
+        if (dictService.findByType(dict.getType()) != null) {
             return new ResultUtil<Object>().setErrorMsg("字典类型Type已存在");
         }
         dictService.save(dict);
         return new ResultUtil<Object>().setSuccessMsg("添加成功");
     }
 
-    @RequestMapping(value = "/edit",method = RequestMethod.POST)
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ApiOperation(value = "编辑")
-    public Result<Object> edit(@ModelAttribute Dict dict){
+    public Result<Object> edit(@ModelAttribute Dict dict) {
 
         Dict old = dictService.get(dict.getId());
         // 若type修改判断唯一
-        if(!old.getType().equals(dict.getType())&&dictService.findByType(dict.getType())!=null){
+        if (!old.getType().equals(dict.getType()) && dictService.findByType(dict.getType()) != null) {
             return new ResultUtil<Object>().setErrorMsg("字典类型Type已存在");
         }
         dictService.update(dict);
         return new ResultUtil<Object>().setSuccessMsg("编辑成功");
     }
 
-    @RequestMapping(value = "/delByIds/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delByIds/{id}", method = RequestMethod.DELETE)
     @ApiOperation(value = "通过id删除")
-    public Result<Object> delAllByIds(@PathVariable String id){
+    public Result<Object> delAllByIds(@PathVariable String id) {
 
 
         Dict dict = dictService.get(id);
@@ -74,9 +74,9 @@ public class DictController{
         return new ResultUtil<Object>().setSuccessMsg("删除成功");
     }
 
-    @RequestMapping(value = "/search",method = RequestMethod.GET)
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ApiOperation(value = "搜索字典")
-    public Result<List<Dict>> searchPermissionList(@RequestParam String key){
+    public Result<List<Dict>> searchPermissionList(@RequestParam String key) {
 
         List<Dict> list = dictService.findByTitleOrTypeLike(key);
         return new ResultUtil<List<Dict>>().setData(list);

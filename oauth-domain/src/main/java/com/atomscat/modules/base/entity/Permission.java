@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * 菜单/权限
+ *
  * @author Howell Yang
  */
 @Data
@@ -69,27 +70,27 @@ public class Permission extends AtomscatBaseEntity {
     private String url;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "子菜单/权限")
     private List<Permission> children;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "页面拥有的权限类型")
     private List<String> permTypes;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "节点展开 前端所需")
     private Boolean expand = true;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "是否勾选 前端所需")
     private Boolean checked = false;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "是否选中 前端所需")
     private Boolean selected = false;
 }

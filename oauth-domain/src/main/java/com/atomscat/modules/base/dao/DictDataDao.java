@@ -7,13 +7,15 @@ import java.util.List;
 
 /**
  * 字典数据数据处理层
+ *
  * @author Howell Yang
  */
-public interface DictDataDao extends AtomscatBaseDao<DictData,String> {
+public interface DictDataDao extends AtomscatBaseDao<DictData, String> {
 
 
     /**
      * 通过dictId和状态获取
+     *
      * @param dictId
      * @param status
      * @return
@@ -22,6 +24,7 @@ public interface DictDataDao extends AtomscatBaseDao<DictData,String> {
 
     /**
      * 通过dictId删除
+     *
      * @param dictId
      */
     void deleteByDictId(String dictId);

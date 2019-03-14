@@ -3,6 +3,7 @@ package com.atomscat.common.constant;
 
 /**
  * 常量
+ *
  * @author Howell Yang
  */
 public interface CommonConstant {

@@ -9,12 +9,14 @@ import java.util.List;
 
 /**
  * 字典数据接口
+ *
  * @author Howell Yang
  */
-public interface DictDataService extends AtomscatBaseService<DictData,String> {
+public interface DictDataService extends AtomscatBaseService<DictData, String> {
 
     /**
      * 多条件获取
+     *
      * @param dictData
      * @param pageable
      * @return
@@ -23,6 +25,7 @@ public interface DictDataService extends AtomscatBaseService<DictData,String> {
 
     /**
      * 通过dictId获取启用字典 已排序
+     *
      * @param dictId
      * @return
      */
@@ -30,6 +33,7 @@ public interface DictDataService extends AtomscatBaseService<DictData,String> {
 
     /**
      * 通过dictId删除
+     *
      * @param dictId
      */
     void deleteByDictId(String dictId);

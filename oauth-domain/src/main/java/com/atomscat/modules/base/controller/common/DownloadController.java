@@ -20,9 +20,9 @@ import java.io.*;
 @RequestMapping("/rmp/download")
 @Transactional
 public class DownloadController {
-    @RequestMapping(value = "/file",method = RequestMethod.GET)
+    @RequestMapping(value = "/file", method = RequestMethod.GET)
     public String downloadFile(@RequestParam String fileName, HttpServletResponse response) {
-        String path = "/data/template/"+ fileName;
+        String path = "/data/template/" + fileName;
         if (path != null) {
             //设置文件路径
             File file = new File(path);
@@ -32,7 +32,7 @@ public class DownloadController {
                 BufferedInputStream bis = null;
                 try {
                     response.setContentType("application/force-download");// 设置强制下载不打开
-                    response.addHeader("Content-Disposition", "attachment;fileName=" +  java.net.URLEncoder.encode(fileName, "UTF-8"));// 设置文件名
+                    response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(fileName, "UTF-8"));// 设置文件名
                     fis = new FileInputStream(file);
                     bis = new BufferedInputStream(fis);
                     OutputStream os = response.getOutputStream();

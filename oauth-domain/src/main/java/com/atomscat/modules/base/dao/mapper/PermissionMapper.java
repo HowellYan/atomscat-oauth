@@ -13,6 +13,7 @@ public interface PermissionMapper extends BaseMapper<Permission> {
 
     /**
      * 通过用户id获取
+     *
      * @param userId
      * @return
      */

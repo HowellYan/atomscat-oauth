@@ -30,7 +30,7 @@ public class UserRole extends AtomscatBaseEntity {
     private String roleId;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "角色名")
     private String roleName;
 }

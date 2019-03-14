@@ -13,13 +13,15 @@ import java.util.List;
 
 /**
  * 用户接口
+ *
  * @author Howell Yang
  */
 @CacheConfig(cacheNames = "user")
-public interface UserService extends AtomscatBaseService<User,String> {
+public interface UserService extends AtomscatBaseService<User, String> {
 
     /**
      * 通过用户名获取用户
+     *
      * @param username
      * @return
      */
@@ -28,6 +30,7 @@ public interface UserService extends AtomscatBaseService<User,String> {
 
     /**
      * 通过手机获取用户
+     *
      * @param mobile
      * @return
      */
@@ -35,6 +38,7 @@ public interface UserService extends AtomscatBaseService<User,String> {
 
     /**
      * 通过邮件和状态获取用户
+     *
      * @param email
      * @return
      */
@@ -42,6 +46,7 @@ public interface UserService extends AtomscatBaseService<User,String> {
 
     /**
      * 多条件分页获取用户
+     *
      * @param user
      * @param searchVo
      * @param pageable
@@ -51,6 +56,7 @@ public interface UserService extends AtomscatBaseService<User,String> {
 
     /**
      * 通过部门id获取
+     *
      * @param departmentId
      * @return
      */

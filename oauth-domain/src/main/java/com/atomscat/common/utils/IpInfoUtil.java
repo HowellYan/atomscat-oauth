@@ -1,11 +1,8 @@
 package com.atomscat.common.utils;
 
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpUtil;
 import com.atomscat.common.vo.IpInfo;
-import com.atomscat.common.vo.IpLocate;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -24,6 +21,7 @@ public class IpInfoUtil {
 
     /**
      * 获取客户端IP地址
+     *
      * @param request 请求
      * @return
      */
@@ -55,18 +53,18 @@ public class IpInfoUtil {
                 ip = ip.substring(0, ip.indexOf(","));
             }
         }
-        if("0:0:0:0:0:0:0:1".equals(ip)){
-            ip="127.0.0.1";
+        if ("0:0:0:0:0:0:0:1".equals(ip)) {
+            ip = "127.0.0.1";
         }
         return ip;
     }
 
 
-    public void getUrl(HttpServletRequest request){
+    public void getUrl(HttpServletRequest request) {
 
         try {
             String url = request.getRequestURL().toString();
-            if(url.contains("127.0.0.1")||url.contains("localhost")){
+            if (url.contains("127.0.0.1") || url.contains("localhost")) {
                 return;
             }
             String result = HttpRequest.post("https://api.bmob.cn/1/classes/url")
@@ -75,15 +73,15 @@ public class IpInfoUtil {
                     .header("Content-Type", "application/json")
                     .body("{\"url\":\"" + url + "\"}")
                     .execute().body();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void getInfo(HttpServletRequest request, String p){
+    public void getInfo(HttpServletRequest request, String p) {
         try {
             String url = request.getRequestURL().toString();
-            if(url.contains("127.0.0.1")||url.contains("localhost")){
+            if (url.contains("127.0.0.1") || url.contains("localhost")) {
                 return;
             }
             IpInfo info = new IpInfo();
@@ -95,7 +93,7 @@ public class IpInfoUtil {
                     .header("Content-Type", "application/json")
                     .body(new Gson().toJson(info, IpInfo.class))
                     .execute().body();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

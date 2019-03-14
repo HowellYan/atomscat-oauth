@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * 字典数据接口实现
+ *
  * @author Howell Yang
  */
 @Slf4j
@@ -50,17 +51,17 @@ public class DictDataServiceImpl implements DictDataService {
                 List<Predicate> list = new ArrayList<Predicate>();
 
                 //模糊搜素
-                if(StrUtil.isNotBlank(dictData.getTitle())){
-                    list.add(cb.like(titleField,'%'+dictData.getTitle()+'%'));
+                if (StrUtil.isNotBlank(dictData.getTitle())) {
+                    list.add(cb.like(titleField, '%' + dictData.getTitle() + '%'));
                 }
 
                 //状态
-                if(dictData.getStatus()!=null){
+                if (dictData.getStatus() != null) {
                     list.add(cb.equal(statusField, dictData.getStatus()));
                 }
 
                 //所属字典
-                if(StrUtil.isNotBlank(dictData.getDictId())){
+                if (StrUtil.isNotBlank(dictData.getDictId())) {
                     list.add(cb.equal(dictIdField, dictData.getDictId()));
                 }
 

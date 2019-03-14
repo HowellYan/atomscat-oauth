@@ -15,11 +15,12 @@ import java.util.Map;
 public class ResponseUtil {
 
     /**
-     *  使用response输出JSON
+     * 使用response输出JSON
+     *
      * @param response
      * @param resultMap
      */
-    public static void out(ServletResponse response, Map<String, Object> resultMap){
+    public static void out(ServletResponse response, Map<String, Object> resultMap) {
 
         PrintWriter out = null;
         try {
@@ -29,15 +30,15 @@ public class ResponseUtil {
             out.println(new Gson().toJson(resultMap));
         } catch (Exception e) {
             log.error(e + "输出JSON出错");
-        }finally{
-            if(out!=null){
+        } finally {
+            if (out != null) {
                 out.flush();
                 out.close();
             }
         }
     }
 
-    public static Map<String, Object> resultMap(boolean flag, Integer code, String msg){
+    public static Map<String, Object> resultMap(boolean flag, Integer code, String msg) {
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("success", flag);
@@ -47,7 +48,7 @@ public class ResponseUtil {
         return resultMap;
     }
 
-    public static Map<String, Object> resultMap(boolean flag, Integer code, String msg, Object data){
+    public static Map<String, Object> resultMap(boolean flag, Integer code, String msg, Object data) {
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("success", flag);

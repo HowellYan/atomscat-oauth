@@ -4,6 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * 限流注解
+ *
  * @author Howell Yang
  */
 @Target(ElementType.METHOD)//作用于方法上
@@ -12,5 +13,6 @@ import java.lang.annotation.*;
 public @interface RateLimiter {
 
     int limit() default 5;
+
     int timeout() default 1000;
 }

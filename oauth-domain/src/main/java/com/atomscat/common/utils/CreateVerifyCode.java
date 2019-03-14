@@ -9,10 +9,12 @@ import java.util.Random;
 
 /**
  * 随机字符验证码生成工具类
+ *
  * @author Howell Yang
  */
 public class CreateVerifyCode {
 
+    Random random = new Random();
     /**
      * 图片的宽度
      */
@@ -37,8 +39,6 @@ public class CreateVerifyCode {
      * 验证码图片Buffer
      */
     private BufferedImage buffImg = null;
-
-    Random random = new Random();
 
     public CreateVerifyCode() {
         creatImage();
@@ -123,7 +123,7 @@ public class CreateVerifyCode {
             g.setColor(getRandColor(1, 255));
             // g.drawString(a,x,y);
             // a为要画出来的东西，x和y表示要画的东西最左侧字符的基线位于此图形上下文坐标系的 (x, y) 位置处
-            g.drawString(strRand, i*fontWidth+3, codeY);
+            g.drawString(strRand, i * fontWidth + 3, codeY);
         }
 
     }
@@ -177,13 +177,14 @@ public class CreateVerifyCode {
             g.setColor(getRandColor(1, 255));
             // g.drawString(a,x,y);
             // a为要画出来的东西，x和y表示要画的东西最左侧字符的基线位于此图形上下文坐标系的 (x, y) 位置处
-            g.drawString(strRand, i*fontWidth+3, codeY);
+            g.drawString(strRand, i * fontWidth + 3, codeY);
         }
 
     }
 
     /**
      * 得到随机字符
+     *
      * @param n
      * @return
      */
@@ -201,16 +202,17 @@ public class CreateVerifyCode {
 
     /**
      * 得到随机颜色
+     *
      * @param fc
      * @param bc
      * @return
      */
     private Color getRandColor(int fc, int bc) {
         // 给定范围获得随机颜色
-        if (fc > 255){
+        if (fc > 255) {
             fc = 255;
         }
-        if (bc > 255){
+        if (bc > 255) {
             bc = 255;
         }
         int r = fc + random.nextInt(bc - fc);

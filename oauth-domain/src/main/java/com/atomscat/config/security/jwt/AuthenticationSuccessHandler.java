@@ -27,10 +27,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 登录成功处理类
+ *
  * @author Howell Yang
  */
 @Slf4j
@@ -56,28 +56,28 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
         //用户选择保存登录状态几天
         String saveLogin = request.getParameter(SecurityConstant.SAVE_LOGIN);
         Boolean saved = false;
-        if(StrUtil.isNotBlank(saveLogin) && Boolean.valueOf(saveLogin)){
+        if (StrUtil.isNotBlank(saveLogin) && Boolean.valueOf(saveLogin)) {
             saved = true;
-            if(!tokenRedis){
+            if (!tokenRedis) {
                 tokenExpireTime = saveLoginTime * 60 * 24;
             }
         }
-        String username = ((UserDetails)authentication.getPrincipal()).getUsername();
-        List<GrantedAuthority> authorities = (List<GrantedAuthority>) ((UserDetails)authentication.getPrincipal()).getAuthorities();
+        String username = ((UserDetails) authentication.getPrincipal()).getUsername();
+        List<GrantedAuthority> authorities = (List<GrantedAuthority>) ((UserDetails) authentication.getPrincipal()).getAuthorities();
         List<String> list = new ArrayList<>();
-        for(GrantedAuthority g : authorities){
+        for (GrantedAuthority g : authorities) {
             list.add(g.getAuthority());
         }
         ipInfoUtil.getUrl(request);
         // 登陆成功生成token
         String token;
-        if(tokenRedis){
+        if (tokenRedis) {
             // redis
             token = UUID.randomUUID().toString().replace("-", "");
             TokenUser user = new TokenUser(username, list, saved);
             // 单点登录 之前的token失效
 
-        }else{
+        } else {
             // jwt
             token = SecurityConstant.TOKEN_SPLIT + Jwts.builder()
                     //主题 放入用户名
@@ -91,6 +91,6 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
                     .compact();
         }
 
-        ResponseUtil.out(response, ResponseUtil.resultMap(true,200,"登录成功", token));
+        ResponseUtil.out(response, ResponseUtil.resultMap(true, 200, "登录成功", token));
     }
 }

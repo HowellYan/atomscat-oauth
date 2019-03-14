@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Transactional
 public class SecurityController {
 
-    @RequestMapping(value = "/needLogin",method = RequestMethod.GET)
+    @RequestMapping(value = "/needLogin", method = RequestMethod.GET)
     @ApiOperation(value = "没有登录")
-    public Result<Object> needLogin(){
+    public Result<Object> needLogin() {
 
         return new ResultUtil<Object>().setErrorMsg(401, "您还未登录");
     }

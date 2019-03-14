@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author Howell Yang
  */
 @Data
-public class EsInfo implements Serializable{
+public class EsInfo implements Serializable {
 
     private String cluster_name;
 

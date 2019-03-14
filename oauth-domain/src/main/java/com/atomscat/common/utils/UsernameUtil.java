@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 /**
  * 用户名验证工具类
+ *
  * @author Howell Yang
  */
 @Slf4j
@@ -27,28 +28,28 @@ public class UsernameUtil {
      */
     private static final Pattern pEmail = Pattern.compile("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$");
 
-    public static boolean Username(String v){
+    public static boolean Username(String v) {
 
         Matcher m = pUsername.matcher(v);
-        if(m.matches()){
+        if (m.matches()) {
             return true;
         }
         return false;
     }
 
-    public static boolean Mobile(String v){
+    public static boolean Mobile(String v) {
 
         Matcher m = pMobile.matcher(v);
-        if(m.matches()){
+        if (m.matches()) {
             return true;
         }
         return false;
     }
 
-    public static boolean Email(String v){
+    public static boolean Email(String v) {
 
         Matcher m = pEmail.matcher(v);
-        if(m.matches()){
+        if (m.matches()) {
             return true;
         }
         return false;
