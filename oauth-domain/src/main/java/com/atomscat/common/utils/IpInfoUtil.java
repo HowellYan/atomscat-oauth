@@ -8,7 +8,6 @@ import com.atomscat.common.vo.IpInfo;
 import com.atomscat.common.vo.IpLocate;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +21,6 @@ import java.net.UnknownHostException;
 @Slf4j
 @Component
 public class IpInfoUtil {
-
-    @Value("${Atomscat.mob.appKey}")
-    private String appKey;
 
     /**
      * 获取客户端IP地址
@@ -65,50 +61,6 @@ public class IpInfoUtil {
         return ip;
     }
 
-    /**
-     * 获取IP返回地理天气信息
-     * @param ip ip地址
-     * @return
-     */
-    public String getIpWeatherInfo(String ip){
-
-        String GET_IP_WEATHER = "http://apicloud.mob.com/v1/weather/ip?key="+ appKey +"&ip=";
-        if(StrUtil.isNotBlank(ip)){
-            String url = GET_IP_WEATHER + ip;
-            String result= HttpUtil.get(url);
-            return result;
-        }
-        return null;
-    }
-
-    /**
-     * 获取IP返回地理信息
-     * @param ip ip地址
-     * @return
-     */
-    public String getIpCity(String ip){
-
-        String GET_IP_LOCATE = "http://apicloud.mob.com/ip/query?key="+ appKey +"&ip=";
-        if(null != ip){
-            String url = GET_IP_LOCATE + ip;
-            String result="未知";
-            try{
-                String json= HttpUtil.get(url, 3000);
-                IpLocate locate=new Gson().fromJson(json, IpLocate.class);
-                if(("200").equals(locate.getRetCode())){
-                    if(StrUtil.isNotBlank(locate.getResult().getProvince())){
-                        result=locate.getResult().getProvince()+" "+locate.getResult().getCity();
-                    }else{
-                        result=locate.getResult().getCountry();
-                    }
-                }
-            }catch (Exception e){
-                log.info("获取IP信息失败");
-            }
-            return result;
-        }
-        return null;
-    }
 
     public void getUrl(HttpServletRequest request){
 

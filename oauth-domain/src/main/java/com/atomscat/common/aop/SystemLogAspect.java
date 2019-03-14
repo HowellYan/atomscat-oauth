@@ -14,7 +14,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,9 +35,6 @@ import java.util.Map;
 public class SystemLogAspect {
 
     private static final ThreadLocal<Date> beginTimeThreadLocal = new NamedThreadLocal<Date>("ThreadLocal beginTime");
-
-    @Value("${Atomscat.logRecord.es}")
-    private Boolean esRecord;
 
 
     @Autowired
@@ -85,9 +81,7 @@ public class SystemLogAspect {
 
             if (StrUtil.isNotBlank(username)) {
 
-                if(esRecord){
-                    // todo: 保存到ES
-                }else{
+
                     Log log = new Log();
 
                     //日志标题
@@ -105,8 +99,7 @@ public class SystemLogAspect {
                     log.setUsername(username);
                     //请求IP
                     log.setIp(ipInfoUtil.getIpAddr(request));
-                    //IP地址
-                    log.setIpInfo(ipInfoUtil.getIpCity(ipInfoUtil.getIpAddr(request)));
+
                     //请求开始时间
                     Date logStartTime = beginTimeThreadLocal.get();
 
@@ -120,7 +113,7 @@ public class SystemLogAspect {
                     //调用线程保存至ES
                     ThreadPoolUtil.getPool().execute(new SaveSystemLogThread(log, logService));
                 }
-            }
+
         } catch (Exception e) {
             log.error("AOP后置通知异常", e);
         }

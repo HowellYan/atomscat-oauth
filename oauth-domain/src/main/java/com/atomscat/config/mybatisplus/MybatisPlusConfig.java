@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Howell Yang
  */
 @Configuration
-@MapperScan("com.com.atomscat.modules.*.*.mapper")
+@MapperScan("com.atomscat.modules.*.*.mapper")
 public class MybatisPlusConfig {
 
     /**

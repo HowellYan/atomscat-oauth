@@ -1,8 +1,6 @@
 package com.atomscat.modules.base.controller.common;
 
-import cn.hutool.core.util.StrUtil;
-import com.atomscat.common.exception.AtomscatException;
-import com.atomscat.common.limit.RedisRaterLimiter;
+
 import com.atomscat.common.utils.IpInfoUtil;
 import com.atomscat.common.utils.ResultUtil;
 import com.atomscat.common.vo.Result;
@@ -32,8 +30,6 @@ import java.io.FileInputStream;
 @Transactional
 public class UploadController {
 
-    @Autowired
-    private RedisRaterLimiter redisRaterLimiter;
 
     @Autowired
     private IpInfoUtil ipInfoUtil;
@@ -43,11 +39,6 @@ public class UploadController {
     public Result<Object> upload(@RequestParam("file") MultipartFile file,
                                  HttpServletRequest request) {
 
-        // IP限流 在线Demo所需 5分钟限1个请求
-        String token = redisRaterLimiter.acquireTokenFromBucket("upload:" + ipInfoUtil.getIpAddr(request), 1, 300000);
-        if (StrUtil.isBlank(token)) {
-            throw new AtomscatException("上传那么多干嘛，等等再传吧");
-        }
 
         String result = null;
         // todo: 阿里云OSS
@@ -69,11 +60,7 @@ public class UploadController {
     public Result<Object> uploadToLocal(@RequestParam("file") MultipartFile multipartFile,
                                         HttpServletRequest request) {
 
-        // IP限流 在线Demo所需 60秒限1个请求
-        String token = redisRaterLimiter.acquireTokenFromBucket("upload:" + ipInfoUtil.getIpAddr(request), 1, 60000);
-        if (StrUtil.isBlank(token)) {
-            throw new AtomscatException("上传那么多干嘛，等等再传吧");
-        }
+
 
         String result = null;
 

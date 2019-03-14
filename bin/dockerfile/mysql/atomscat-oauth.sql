@@ -12,8 +12,8 @@
  Date: 17/02/2019 21:41:23
 */
 
-CREATE DATABASE `com.atomscat-oauth` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-use `com.atomscat-oauth`;
+CREATE DATABASE `atomscat-oauth` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+use `atomscat-oauth`;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;

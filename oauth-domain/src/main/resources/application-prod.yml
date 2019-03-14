@@ -10,7 +10,7 @@ server:
 spring:
   # 数据源
   datasource:
-    url: jdbc:mysql://com.atomscat-oauth-mysql:3306/com.atomscat-oauth?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://atomscat-oauth-mysql:3306/atomscat-oauth?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: Aa123456
   # 文件大小上传配置
