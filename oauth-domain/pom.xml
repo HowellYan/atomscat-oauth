@@ -56,11 +56,6 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
-        <!-- Redis-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-redis</artifactId>
-        </dependency>
         <!-- Swagger API文档 -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -99,5 +94,10 @@
 
     </dependencies>
 
+    <build>
+        <finalName>root</finalName>
+        <!--主要war包输出的目录为../target文件夹-->
+        <directory>${project.basedir}/../target</directory>
+    </build>
 
 </project>

@@ -6,7 +6,6 @@ import com.atomscat.common.utils.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
@@ -33,8 +32,6 @@ public class AuthenticationFailHandler extends SimpleUrlAuthenticationFailureHan
     @Value("${Atomscat.loginAfterTime}")
     private Integer loginAfterTime;
 
-    @Autowired
-    private StringRedisTemplate redisTemplate;
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
@@ -43,13 +40,8 @@ public class AuthenticationFailHandler extends SimpleUrlAuthenticationFailureHan
             String username = request.getParameter("username");
             recordLoginTime(username);
             String key = "loginTimeLimit:"+username;
-            String value = redisTemplate.opsForValue().get(key);
-            if(StrUtil.isBlank(value)){
-                value = "0";
-            }
-            //获取已登录错误次数
-            int loginFailTime = Integer.parseInt(value);
-            int restLoginTime = loginTimeLimit - loginFailTime;
+
+            int restLoginTime = loginTimeLimit ;
             log.info("用户"+username+"登录失败，还有"+restLoginTime+"次机会");
             if(restLoginTime<=3&&restLoginTime>0){
                 ResponseUtil.out(response, ResponseUtil.resultMap(false,500,"用户名或密码错误，还有"+restLoginTime+"次尝试机会"));
@@ -74,18 +66,7 @@ public class AuthenticationFailHandler extends SimpleUrlAuthenticationFailureHan
 
         String key = "loginTimeLimit:"+username;
         String flagKey = "loginFailFlag:"+username;
-        String value = redisTemplate.opsForValue().get(key);
-        if(StrUtil.isBlank(value)){
-            value = "0";
-        }
-        //获取已登录错误次数
-        int loginFailTime = Integer.parseInt(value) + 1;
-        redisTemplate.opsForValue().set(key, String.valueOf(loginFailTime), loginAfterTime, TimeUnit.MINUTES);
-        if(loginFailTime>=loginTimeLimit){
 
-            redisTemplate.opsForValue().set(flagKey, "fail", loginAfterTime, TimeUnit.MINUTES);
-            return false;
-        }
         return true;
     }
 }

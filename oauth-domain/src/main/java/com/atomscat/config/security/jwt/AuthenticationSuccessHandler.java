@@ -13,7 +13,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,9 +49,6 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
     @Autowired
     private IpInfoUtil ipInfoUtil;
 
-    @Autowired
-    private StringRedisTemplate redisTemplate;
-
     @Override
     @SystemLog(description = "登录系统", type = LogType.LOGIN)
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -80,17 +76,7 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
             token = UUID.randomUUID().toString().replace("-", "");
             TokenUser user = new TokenUser(username, list, saved);
             // 单点登录 之前的token失效
-            String oldToken = redisTemplate.opsForValue().get(SecurityConstant.USER_TOKEN + username);
-            if(StrUtil.isNotBlank(oldToken)){
-                redisTemplate.delete(SecurityConstant.TOKEN_PRE + oldToken);
-            }
-            if(saved){
-                redisTemplate.opsForValue().set(SecurityConstant.USER_TOKEN + username, token, saveLoginTime, TimeUnit.DAYS);
-                redisTemplate.opsForValue().set(SecurityConstant.TOKEN_PRE + token, new Gson().toJson(user), saveLoginTime, TimeUnit.DAYS);
-            }else{
-                redisTemplate.opsForValue().set(SecurityConstant.USER_TOKEN + username, token, tokenExpireTime, TimeUnit.MINUTES);
-                redisTemplate.opsForValue().set(SecurityConstant.TOKEN_PRE + token, new Gson().toJson(user), tokenExpireTime, TimeUnit.MINUTES);
-            }
+
         }else{
             // jwt
             token = SecurityConstant.TOKEN_SPLIT + Jwts.builder()

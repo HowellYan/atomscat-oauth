@@ -74,7 +74,20 @@ mybatis-plus:
     # 配置JdbcTypeForNull, oracle数据库必须配置
     jdbc-type-for-null: 'null'
 
+# 忽略鉴权url
+ignored:
+  urls:
+    - /rmp/common/**
+    - /actuator/**
+
 Atomscat:
+  # 全局限流
+  rateLimit:
+    enable: true
+    # 每1秒内
+    timeout: 1000
+    # 总限制100个请求
+    limit: 100
   token:
     # 默认JWT 启用Redis后设置为true后，token将存入redis，并具有单点登录功能
     redis: true
@@ -90,3 +103,32 @@ Atomscat:
 # 日志
 logging:
   file: com.atomscat-oauth/app.log
+
+#springboot管理相关，结合pringboot actuator一起使用
+management:
+  info:
+    git:
+      mode: full
+    build:
+      enabled: true
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    db:
+      enabled: true
+    #    redis:
+    #      enabled: true
+    diskspace:
+      enabled: true
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      enabled: true
+      show-details: always
+    info:
+      enabled: true

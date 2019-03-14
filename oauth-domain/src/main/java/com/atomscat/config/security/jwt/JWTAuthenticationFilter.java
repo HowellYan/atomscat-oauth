@@ -3,14 +3,12 @@ package com.atomscat.config.security.jwt;
 import cn.hutool.core.util.StrUtil;
 import com.atomscat.common.constant.SecurityConstant;
 import com.atomscat.common.utils.ResponseUtil;
-import com.atomscat.common.vo.TokenUser;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,7 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Howell Yang
@@ -39,13 +36,11 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter   {
 
     private Integer tokenExpireTime;
 
-    private StringRedisTemplate redisTemplate;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, Boolean tokenRedis, Integer tokenExpireTime, StringRedisTemplate redisTemplate) {
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, Boolean tokenRedis, Integer tokenExpireTime) {
         super(authenticationManager);
         this.tokenRedis = tokenRedis;
         this.tokenExpireTime = tokenExpireTime;
-        this.redisTemplate = redisTemplate;
     }
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager, AuthenticationEntryPoint authenticationEntryPoint) {
@@ -82,22 +77,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter   {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         if(tokenRedis){
-            // redis
-            String v = redisTemplate.opsForValue().get(SecurityConstant.TOKEN_PRE + header);
-            if(StrUtil.isBlank(v)){
-                ResponseUtil.out(response, ResponseUtil.resultMap(false,401,"登录已失效，请重新登录"));
-                return null;
-            }
-            TokenUser user = new Gson().fromJson(v, TokenUser.class);
-            username = user.getUsername();
-            for(String ga : user.getPermissions()){
-                authorities.add(new SimpleGrantedAuthority(ga));
-            }
-            if(tokenRedis && !user.getSaveLogin()){
-                // 若未保存登录状态重新设置失效时间
-                redisTemplate.opsForValue().set(SecurityConstant.USER_TOKEN + username, v, tokenExpireTime, TimeUnit.MINUTES);
-                redisTemplate.opsForValue().set(SecurityConstant.TOKEN_PRE + header, v, tokenExpireTime, TimeUnit.MINUTES);
-            }
+
         }else{
             // JWT
             try {

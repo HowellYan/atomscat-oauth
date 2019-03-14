@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,8 +49,6 @@ public class PermissionController {
     @Autowired
     private IPermissionService iPermissionService;
 
-    @Autowired
-    private StringRedisTemplate redisTemplate;
 
     @Autowired
     private SecurityUtil securityUtil;
@@ -67,11 +64,7 @@ public class PermissionController {
         // 读取缓存
         User u = securityUtil.getCurrUser();
         String key = "permission::userMenuList:" + u.getId();
-        String v = redisTemplate.opsForValue().get(key);
-        if(StrUtil.isNotBlank(v)){
-            list = new Gson().fromJson(v, new TypeToken<List<Permission>>(){}.getType());
-            return new ResultUtil<List<Permission>>().setData(list);
-        }
+
 
         // 用户所有权限 已排序去重
         list = iPermissionService.findByUserId(u.getId());
@@ -119,8 +112,7 @@ public class PermissionController {
             p.setChildren(secondMenu);
         }
 
-        // 缓存
-        redisTemplate.opsForValue().set(key, new Gson().toJson(menuList));
+
         return new ResultUtil<List<Permission>>().setData(menuList);
     }
 
@@ -160,7 +152,6 @@ public class PermissionController {
         //重新加载权限
         mySecurityMetadataSource.loadResourceDefine();
         //手动删除缓存
-        redisTemplate.delete("permission::allList");
         return new ResultUtil<Permission>().setData(u);
     }
 
@@ -182,14 +173,8 @@ public class PermissionController {
         Permission u = permissionService.update(permission);
         //重新加载权限
         mySecurityMetadataSource.loadResourceDefine();
-        //手动批量删除缓存
-        Set<String> keys = redisTemplate.keys("userPermission:" + "*");
-        redisTemplate.delete(keys);
-        Set<String> keysUser = redisTemplate.keys("user:" + "*");
-        redisTemplate.delete(keysUser);
-        Set<String> keysUserMenu = redisTemplate.keys("permission::userMenuList:*");
-        redisTemplate.delete(keysUserMenu);
-        redisTemplate.delete("permission::allList");
+
+
         return new ResultUtil<Permission>().setData(u);
     }
 
@@ -209,8 +194,7 @@ public class PermissionController {
         }
         //重新加载权限
         mySecurityMetadataSource.loadResourceDefine();
-        //手动删除缓存
-        redisTemplate.delete("permission::allList");
+
         return new ResultUtil<Object>().setSuccessMsg("批量通过id删除数据成功");
     }
 

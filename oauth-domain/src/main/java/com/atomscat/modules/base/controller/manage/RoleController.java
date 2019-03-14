@@ -14,7 +14,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,8 +43,6 @@ public class RoleController {
     @Autowired
     private RoleDepartmentService roleDepartmentService;
 
-    @Autowired
-    private StringRedisTemplate redisTemplate;
 
     @RequestMapping(value = "/getAllList",method = RequestMethod.GET)
     @ApiOperation(value = "获取全部角色")
@@ -99,15 +96,6 @@ public class RoleController {
             rolePermission.setPermissionId(permId);
             rolePermissionService.save(rolePermission);
         }
-        //手动批量删除缓存
-        Set<String> keysUser = redisTemplate.keys("user:" + "*");
-        redisTemplate.delete(keysUser);
-        Set<String> keysUserRole = redisTemplate.keys("userRole:" + "*");
-        redisTemplate.delete(keysUserRole);
-        Set<String> keysUserPerm = redisTemplate.keys("userPermission:" + "*");
-        redisTemplate.delete(keysUserPerm);
-        Set<String> keysUserMenu = redisTemplate.keys("permission::userMenuList:*");
-        redisTemplate.delete(keysUserMenu);
         return new ResultUtil<Object>().setData(null);
     }
 
@@ -129,11 +117,6 @@ public class RoleController {
             roleDepartment.setDepartmentId(depId);
             roleDepartmentService.save(roleDepartment);
         }
-        // 手动删除相关缓存
-        Set<String> keys = redisTemplate.keys("department:" + "*");
-        redisTemplate.delete(keys);
-        Set<String> keysUserRole = redisTemplate.keys("userRole:" + "*");
-        redisTemplate.delete(keysUserRole);
 
         return new ResultUtil<Object>().setData(null);
     }
@@ -151,11 +134,6 @@ public class RoleController {
     public Result<Role> edit(@ModelAttribute Role entity){
 
         Role r = roleService.update(entity);
-        //手动批量删除缓存
-        Set<String> keysUser = redisTemplate.keys("user:" + "*");
-        redisTemplate.delete(keysUser);
-        Set<String> keysUserRole = redisTemplate.keys("userRole:" + "*");
-        redisTemplate.delete(keysUserRole);
         return new ResultUtil<Role>().setData(r);
     }
 

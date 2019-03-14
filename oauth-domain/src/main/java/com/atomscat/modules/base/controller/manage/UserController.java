@@ -25,7 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -61,8 +60,6 @@ public class UserController {
     @Autowired
     private UserRoleService userRoleService;
 
-    @Autowired
-    private StringRedisTemplate redisTemplate;
 
     @Autowired
     private SecurityUtil securityUtil;
@@ -81,22 +78,9 @@ public class UserController {
             return new ResultUtil<Object>().setErrorMsg("缺少必需表单字段");
         }
 
-        //验证码
-        String code=redisTemplate.opsForValue().get(captchaId);
-        if(StrUtil.isBlank(code)){
-            return new ResultUtil<Object>().setErrorMsg("验证码已过期，请重新获取");
-        }
-
-        if(!verify.toLowerCase().equals(code.toLowerCase())) {
-            log.error("注册失败，验证码错误：code:"+ verify +",redisCode:"+code.toLowerCase());
-            return new ResultUtil<Object>().setErrorMsg("验证码输入错误");
-        }
-
         if(userService.findByUsername(u.getUsername())!=null){
             return new ResultUtil<Object>().setErrorMsg("该用户名已被注册");
         }
-        //删除缓存
-        redisTemplate.delete("user::"+u.getUsername());
 
         String encryptPass = new BCryptPasswordEncoder().encode(u.getPassword());
         u.setPassword(encryptPass);
@@ -168,17 +152,7 @@ public class UserController {
                                @RequestParam(required = false) String[] roles){
 
         User old = userService.get(u.getId());
-        //若修改了用户名
-        if(!old.getUsername().equals(u.getUsername())){
-            //若修改用户名删除原用户名缓存
-            redisTemplate.delete("user::"+old.getUsername());
-            //判断新用户名是否存在
-            if(userService.findByUsername(u.getUsername())!=null){
-                return new ResultUtil<Object>().setErrorMsg("该用户名已被存在");
-            }
-            //删除缓存
-            redisTemplate.delete("user::"+u.getUsername());
-        }
+
 
         // 若修改了手机和邮箱判断是否唯一
         if(!old.getMobile().equals(u.getMobile())&&userService.findByMobile(u.getMobile())!=null){
@@ -204,9 +178,7 @@ public class UserController {
                 userRoleService.save(ur);
             }
         }
-        //手动删除缓存
-        redisTemplate.delete("userRole::"+u.getId());
-        redisTemplate.delete("userRole::depIds:"+u.getId());
+
         return new ResultUtil<Object>().setSuccessMsg("修改成功");
     }
 
@@ -235,8 +207,6 @@ public class UserController {
         user.setPassword(newEncryptPass);
         userService.update(user);
 
-        //手动更新缓存
-        redisTemplate.delete("user::"+user.getUsername());
 
         return new ResultUtil<Object>().setSuccessMsg("修改密码成功");
     }
@@ -307,8 +277,7 @@ public class UserController {
         if(userService.findByUsername(u.getUsername())!=null){
             return new ResultUtil<Object>().setErrorMsg("该用户名已被注册");
         }
-        //删除缓存
-        redisTemplate.delete("user::"+u.getUsername());
+
 
         String encryptPass = new BCryptPasswordEncoder().encode(u.getPassword());
         u.setPassword(encryptPass);
@@ -340,7 +309,7 @@ public class UserController {
         user.setStatus(CommonConstant.USER_STATUS_LOCK);
         userService.update(user);
         //手动更新缓存
-        redisTemplate.delete("user::"+user.getUsername());
+
         return new ResultUtil<Object>().setData(null);
     }
 
@@ -355,7 +324,7 @@ public class UserController {
         user.setStatus(CommonConstant.USER_STATUS_NORMAL);
         userService.update(user);
         //手动更新缓存
-        redisTemplate.delete("user::"+user.getUsername());
+
         return new ResultUtil<Object>().setData(null);
     }
 
@@ -366,10 +335,6 @@ public class UserController {
         for(String id:ids){
             User u = userService.get(id);
             //删除缓存
-            redisTemplate.delete("user::" + u.getUsername());
-            redisTemplate.delete("userRole::" + u.getId());
-            redisTemplate.delete("userRole::depIds:" + u.getId());
-            redisTemplate.delete("permission::userMenuList:" + u.getId());
             userService.delete(id);
             //删除关联角色
             userRoleService.deleteByUserId(id);
