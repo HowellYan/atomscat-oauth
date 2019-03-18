@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 mvn clean install -DskipTests;
+cp -R ./target/lib ./bin/dockerfile/java-app
 cp ./target/root.jar ./bin/dockerfile/java-app
 docker build --rm -t atomscat-oauth ./bin/dockerfile/java-app/;
 

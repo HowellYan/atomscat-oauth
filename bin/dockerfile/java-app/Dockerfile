@@ -2,9 +2,10 @@ FROM java:8
 MAINTAINER com.atomscat
 ENV JAVA_OPTIONS=""
 RUN echo 'Asia/Shanghai' >/etc/timezone
-RUN mkdir /tools; mkdir -p /data/template; mkdir -p /data/file; mkdir -p /data/log; chmod 777 /tools; chmod 777 /data;
+RUN mkdir /tools;mkdir /tools/lib; mkdir -p /data/template; mkdir -p /data/file; mkdir -p /data/log; chmod 777 /tools; chmod 777 /data;
 EXPOSE 8002/tcp
 VOLUME ["/tools", "/data"]
+ADD lib /tools/lib
 ADD root.jar /tools/app.jar
 ADD boot.conf /tools/boot.conf
 RUN bash -c 'touch /tools/app.jar'
